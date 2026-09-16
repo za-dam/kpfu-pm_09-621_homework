@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="file\file.csproj"  />
+  <Project Path="tumakov\tumakov.csproj" />
+  <Project Path="datatypes/datatypes.csproj" />
+  <Project Path="MyLib/MyLib.csproj" />
+</Solution>
