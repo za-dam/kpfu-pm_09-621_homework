@@ -16,5 +16,6 @@ public enum University
 {
     KGU,
     KAI, 
-    KHTI 
+    KHTI,
+    Unknown
 }

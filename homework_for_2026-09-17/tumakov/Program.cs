@@ -14,18 +14,37 @@ class Program
         "Current (текущий) и Savings (сберегательный). \n" +
         "Создать переменную этого типа, присвоить значение, вывести.");
 
-        AccountType account1 = AccountType.Current;
-        Console.WriteLine($"Тип счёта: {account1}");
+        Console.WriteLine("Введите тип счёта (текущий / сберегательный) : ");
+        AccountType accountType1 = Console.ReadLine()! switch
+        {
+            "текущий" => AccountType.Current,
+            "сберегательный" => AccountType.Savings,
+            _ => AccountType.Unknown
+        };
+        Console.WriteLine($"Тип счёта: {accountType1}");
         Console.ReadKey();
 
         //Упражнение 3.2
         Console.WriteLine("\nУпражнение 3.2 - Создать struct BankAccount с тремя полями: \n" +
         "номер счёта, тип (из задания 3.1), баланс. Заполнить значениями и напечатать.");
 
+        Console.WriteLine("Введите номер счёта : ");
+        string accountNumber2 = Console.ReadLine()!;
+        Console.WriteLine("Введите тип счёта (текущий / сберегательный) : ");
+        AccountType accountType2 = Console.ReadLine()!.Trim().ToLower() switch
+        {
+            "текущий" => AccountType.Current,
+            "сберегательный" => AccountType.Savings,
+            _ => AccountType.Unknown
+        };
+        Console.WriteLine("Введите баланс счёта : ");
+        decimal accountBalance2 = decimal.Parse(Console.ReadLine()!);
+
         BankAccount account2 = new BankAccount(
-            "40817810099910004312",
-            AccountType.Savings,
-            125000.50m);
+            accountNumber2,
+            accountType2,
+            accountBalance2
+            );
         Console.WriteLine($"""
             Информация о счёте :
             Номер счёта: {account2.AccountNumber}
@@ -39,7 +58,18 @@ class Program
         "Создать struct Employee с двумя полями — имя (string) и ВУЗ (University). \n" +
         "Заполнить и распечатать.");
 
-        Employee worker = new Employee("Иванов Иван Иванович", University.KAI);
+        Console.Write("\nВведите имя работника: ");
+        string name3 = Console.ReadLine()!;
+        Console.Write("Введите ВУЗ (КГУ / КАИ / КХТИ): ");
+        University university3 = Console.ReadLine()!.Trim().ToLower() switch
+        {
+            "кгу" => University.KGU,
+            "каи" => University.KAI,
+            "кхти" => University.KHTI,
+            _ => University.Unknown
+        };
+
+        Employee worker = new Employee();
         Console.WriteLine($"""
         Информация о работнике :
         Имя:  {worker.Name}

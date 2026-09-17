@@ -17,5 +17,6 @@ public struct BankAccount
 public enum AccountType
 {
     Current,  
-    Savings   
+    Savings,
+    Unknown  
 }
