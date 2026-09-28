@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="HomeworkFromTheFile/HomeworkFromTheFile.csproj" />
+  <Project Path="HomeworkFromTumakov/HomeworkFromTumakov.csproj" />
+  <Project Path="MyLibrary/MyLibrary.csproj" />
+</Solution>
