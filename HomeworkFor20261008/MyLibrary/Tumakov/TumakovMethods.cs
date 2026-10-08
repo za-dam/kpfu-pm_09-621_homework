@@ -64,7 +64,7 @@ public static class TumakovMethods
     /// </summary>
     /// <param name="number">Число, факториал которого необходимо вычислить.</param>
     /// <returns>Факториал переданного числа.</returns>
-    public static ulong RecursionFactorial(ulong number)
+    private static ulong RecursionFactorial(ulong number)
     {
         if (number == 0 || number == 1)
         {
@@ -72,6 +72,32 @@ public static class TumakovMethods
         }
         
         return number * RecursionFactorial(number - 1);
+    }
+
+    /// <summary>
+    /// Пытается рекурсивно вычислить факториал числа с контролем арифметического переполнения.
+    /// </summary>
+    /// <param name="number">Число типа <see cref="ulong"/>, для которого необходимо вычислить факториал.</param>
+    /// <param name="result">Выходной параметр. В случае успеха содержит вычисленный факториал; в случае переполнения равен 0.</param>
+    /// <returns>
+    /// Возвращает <see langword="true"/>, если факториал успешно вычислен и поместился в диапазон <see cref="ulong"/> (для чисел от 0 до 20); 
+    /// иначе — <see langword="false"/> (для чисел 21 и более).
+    /// </returns>
+    public static bool TryRecursionFactorial(ulong number, out ulong result)
+    {
+        try
+        {
+            checked
+            {
+                result = RecursionFactorial(number);
+                return true;
+            }
+        }
+        catch (OverflowException)
+        {
+            result = 0;
+            return false;
+        }
     }
 
     /// <summary>
@@ -108,12 +134,38 @@ public static class TumakovMethods
     /// </summary>
     /// <param name="number">Порядковый номер числа Фибоначчи (индекс элемента в последовательности).</param>
     /// <returns>Значение N-го числа Фибоначчи.</returns>
-    public static ulong RecursionFibonacci(ulong number)
+    private static ulong RecursionFibonacci(ulong number)
     {
         if (number == 1) 
         {
             return number;
         }
         return RecursionFibonacci(number - 2) + RecursionFibonacci(number - 1);
+    }
+
+    /// <summary>
+    /// Пытается рекурсивно вычислить n-е число ряда Фибоначчи с контролем арифметического переполнения.
+    /// </summary>
+    /// <param name="number">Порядковый номер числа в ряду Фибоначчи (индексация начинается с 1).</param>
+    /// <param name="result">Выходной параметр. В случае успеха содержит n-е число Фибоначчи; в случае переполнения равен 0.</param>
+    /// <returns>
+    /// Возвращает <see langword="true"/>, если число успешно вычислено и поместилось в диапазон <see cref="ulong"/> (для n от 1 до 93); 
+    /// иначе — <see langword="false"/> (при арифметическом переполнении для n >= 94).
+    /// </returns>
+    public static bool TryRecursionFibonacci(ulong number, out ulong result)
+    {
+        try
+        {
+            checked
+            {
+                result = RecursionFibonacci(number);
+                return true;
+            }
+        }
+        catch (OverflowException)
+        {
+            result = 0;
+            return false;
+        }
     }
 }

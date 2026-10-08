@@ -10,6 +10,7 @@ class Program
         //Задания из методички Тумакова - Лабораторная 5 главы
         Console.WriteLine("Задания из методички Тумакова - Лабораторная 5 главы");
 
+        //Выводим все возможные на выбор задания с кратким пояснением
         Console.WriteLine("(Task 1) Упражнение 5.1. - метод, возвращающий наибольшее из двух целых чисел");
         Console.WriteLine("(Task 2) Упражнение 5.2. - метод, меняющий местами два значения двух передаваемых по ссылке параметров");
         Console.WriteLine("(Task 3) Упражнение 5.3. - метод, высчитывающий факториал, отслеживающий переполнение значения");
@@ -17,6 +18,7 @@ class Program
         Console.WriteLine("(Task 5) Домашнее задание 5.1. - метод вычисления НОД для 2 и 3 натуральных чисел");
         Console.WriteLine("(Task 6) Домашнее задание 5.2. - рекурсивный метод вычисления n-ого числа ряда Фибоначчи");
 
+        // Запускаем бесконечный цикл, чтобы пользователь мог тестировать разные задачи без перезапуска программы
         while (true)
         {
             Console.Write("Выберите номер необходимого задания(1-6) (0 для завершения работы) : ");
@@ -125,21 +127,18 @@ class Program
     {
         Console.WriteLine("(Task 4) Упражнение 5.4. - рекурсивный метод вычисления факториала");
 
-        Console.Write("Введите целое неотрицательное число для расчёта его факториала рекурсивно : ");
+        Console.Write("Введите целое неотрицательное число от 0 до 20 для расчёта его факториала рекурсивно : ");
 
         if (ulong.TryParse(Console.ReadLine(), out ulong userNumber) && userNumber >= 0)
         {
-            try
+            if (TumakovMethods.TryRecursionFactorial(userNumber, out ulong factorialNumber))
             {
-                checked
-                {
-                    ulong userFactorial = TumakovMethods.RecursionFactorial(userNumber);
-                    Console.WriteLine($"\nФакториал {userNumber} равен: {userNumber}");   
-                }
+                Console.WriteLine($"\nФакториал {userNumber} равен: {factorialNumber}");
             }
-            catch (OverflowException)
+            else
             {
-                Console.WriteLine("\nОшибка : Переполнение значения в ходе рекурсии.");
+                Console.WriteLine($"\nОшибка : При вычислении {userNumber}! произошло переполнение.");
+                return;
             }
         }
         else
@@ -184,15 +183,23 @@ class Program
     {
         Console.WriteLine("(Task 6) Домашнее задание 5.2. - рекурсивный метод вычисления n-ого числа ряда Фибоначчи");
 
-        Console.Write("Введите номер n-ого числа ряда Фибоначчи (от 1 до 40): ");
+        Console.Write("Введите номер n-ого числа ряда Фибоначчи (от 1 до 93): ");
 
-        if (ulong.TryParse(Console.ReadLine(), out ulong userNumber) && userNumber <= 40 && userNumber > 0)
+        if (ulong.TryParse(Console.ReadLine(), out ulong userNumber) && userNumber <= 93 && userNumber > 0)
         {
-            Console.WriteLine($"\nЗначение {userNumber}-ого числа из ряда Фибоначчи - {TumakovMethods.RecursionFibonacci(userNumber)}");
+            if (TumakovMethods.TryRecursionFibonacci(userNumber, out ulong fibonacciResult))
+            {
+                Console.WriteLine($"Значение {userNumber}-ого числа ряда Фибоначчи равно {fibonacciResult}");
+            }
+            else
+            {
+                Console.WriteLine($"\nОшибка : При вычислении {userNumber}-ого числа ряда Фибоначчи произошло переполнение.");
+                return;
+            }
         }
         else
         {
-            Console.WriteLine("\nОшибка: Некорректный ввод. Ожидается натуральное число от 0 до 40.");
+            Console.WriteLine("\nОшибка: Некорректный ввод. Ожидается натуральное число от 1 до 93.");
             return;
         }
     }
