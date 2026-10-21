@@ -48,14 +48,25 @@ class Program
 
         try
         {
-            var extensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+            string[] extensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
             
-            var files = Directory.GetFiles(relativePath)
-                                 .Where(file => extensions.Contains(Path.GetExtension(file).ToLower()))
-                                 .Take(64);
+           List<string> files = Directory.GetFiles(relativePath)
+                                  .Where(file => extensions.Contains(Path.GetExtension(file).ToLower()))
+                                  .Take(32)
+                                  .ToList();
 
-            imagePaths.AddRange(files);
+            if (files.Count < 32)
+            {
+                Console.WriteLine($"Ошибка: в папке найдено {files.Count} картинок, а нужно 32.");
+                return;
+            }
 
+            foreach (string file in files)
+            {
+                imagePaths.Add(file);
+                imagePaths.Add(file);
+            }
+            
             Utilites.PrintImagesPaths(imagePaths, "Исходный список");
 
             Utilites.Shuffle(imagePaths);
