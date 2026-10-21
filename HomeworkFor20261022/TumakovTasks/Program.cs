@@ -1,9 +1,7 @@
 ﻿namespace TumakovTasks;
 
 class Program
-{
-    static readonly Random random = new Random();
-    
+{   
     internal static string fileName;
 
     internal static readonly string[] monthNames =
@@ -195,7 +193,7 @@ class Program
             int[] days = new int[30];
             for (int i = 0; i < days.Length; i++)
             {
-                days[i] = random.Next(-30, 36);
+                days[i] = Utilites.random.Next(-30, 36);
             }
             temperatures.Add(month, days);
         }

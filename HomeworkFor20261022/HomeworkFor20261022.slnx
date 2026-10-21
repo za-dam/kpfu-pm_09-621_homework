@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="FileTasks/FileTasks.csproj" />
   <Project Path="TumakovTasks/TumakovTasks.csproj" />
 </Solution>

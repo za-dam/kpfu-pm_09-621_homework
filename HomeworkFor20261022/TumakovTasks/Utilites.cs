@@ -2,7 +2,7 @@ namespace TumakovTasks;
 
 public static class Utilites
 {
-    static readonly Random random = new Random();
+    internal static readonly Random random = new Random();
 
     /// <summary>
     /// Получает и валидирует путь к файлу. 
