@@ -42,7 +42,7 @@ class Program
         Console.WriteLine("1 - Перемешивание List с парами картинок");
         Console.WriteLine("От пользователя ничего не требуется");
 
-        string relativePath = @"..\Resources\MyImages"; 
+        string relativePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "MyImages"); 
 
         List<string> imagePaths = new List<string>(64);
 
@@ -86,7 +86,7 @@ class Program
     // 2 - Студенты : чтение из файла и меню
     internal static void Task2()
     {
-        string studentsFilePath = @"..\Resources\StudentsTask2.txt";
+        string studentsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "StudentsTask2.txt");
 
         Console.WriteLine("2 - Студенты : чтение из файла и меню");
         Console.WriteLine("Команды : Новый студент / Удалить / Сортировать / Выход");
@@ -159,7 +159,7 @@ class Program
             }
 
             Console.Write("Дата рождения (ДД.ММ.ГГГГ) : ");
-            if (DateTime.TryParse(Console.ReadLine(), out DateTime birthDate) && birthDate.Year <= DateTime.Now.Year)
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime birthDate) && birthDate.Year > DateTime.Now.Year) //Было неверное условие, нужно >
             {
                 Console.WriteLine("Ошибка: Некорректный возраст. Бабуля не добавлена.");
                 continue;

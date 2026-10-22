@@ -70,6 +70,13 @@ public static class Utilites
     /// </returns>
     public static Dictionary<Guid, Student>? LoadStudents(string studentsFilePath)
     {
+        string? directory = Path.GetDirectoryName(studentsFilePath);
+
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
         if (!File.Exists(studentsFilePath))
         {
             Dictionary<Guid, Student> defaultStudents = CreateDefaultStudents();
