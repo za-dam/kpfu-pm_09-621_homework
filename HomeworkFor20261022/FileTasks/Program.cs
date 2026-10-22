@@ -28,8 +28,8 @@ class Program
                     Console.WriteLine("Завершение работы...");
                     isRunning = false;
                     break;
-                case 1: Task1(); break;
-                case 2: Task2(); break;
+                case 1: Task1(args); break;
+                case 2: Task2(args); break;
                 case 3: Task3(); break;
                 case 4: Task4(); break;
             }
@@ -37,12 +37,18 @@ class Program
     }
 
     // 1 - Перемешивание List с парами картинок
-    internal static void Task1()
+    internal static void Task1(string[] args)
     {
         Console.WriteLine("1 - Перемешивание List с парами картинок");
         Console.WriteLine("От пользователя ничего не требуется");
 
-        string relativePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "MyImages"); 
+        if (args.Length < 1)
+        {
+            Console.WriteLine("Ошибка: В параметрах запуска не передан путь к папке с картинками (args[0]).");
+            return;
+        }
+
+        string relativePath = args[0]; 
 
         List<string> imagePaths = new List<string>(64);
 
@@ -84,11 +90,18 @@ class Program
     }
 
     // 2 - Студенты : чтение из файла и меню
-    internal static void Task2()
+    internal static void Task2(string[] args)
     {
-        string studentsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "StudentsTask2.txt");
-
         Console.WriteLine("2 - Студенты : чтение из файла и меню");
+
+        if (args.Length < 2)
+        {
+            Console.WriteLine("Ошибка: В параметрах запуска не передан путь к файлу студентов (args[1]).");
+            return;
+        }
+
+        string studentsFilePath = args[1]; 
+
         Console.WriteLine("Команды : Новый студент / Удалить / Сортировать / Выход");
 
         Dictionary<Guid, Student>? students = Utilites.LoadStudents(studentsFilePath);

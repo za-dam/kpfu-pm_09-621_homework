@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "FileTasks": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "commandLineArgs": "\"../Resources/MyImages\" \"../Resources/StudentsTask2.txt\""
+    }
+  }
+}
