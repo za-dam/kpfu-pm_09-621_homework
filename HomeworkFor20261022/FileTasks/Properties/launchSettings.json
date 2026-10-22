@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "commandLineArgs": "\"../Resources/MyImages\" \"../Resources/StudentsTask2.txt\""
+     "commandLineArgs": "\"../Resources/MyImages\" \"../Resources/StudentsTask2.txt\""
     }
   }
 }

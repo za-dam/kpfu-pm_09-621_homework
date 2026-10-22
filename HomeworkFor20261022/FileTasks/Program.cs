@@ -48,7 +48,7 @@ class Program
             return;
         }
 
-        string relativePath = args[0]; 
+        string absolutePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), args[0]));
 
         List<string> imagePaths = new List<string>(64);
 
@@ -56,7 +56,7 @@ class Program
         {
             string[] extensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
             
-           List<string> files = Directory.GetFiles(relativePath)
+           List<string> files = Directory.GetFiles(absolutePath)
                                   .Where(file => extensions.Contains(Path.GetExtension(file).ToLower()))
                                   .Take(32)
                                   .ToList();
@@ -81,7 +81,9 @@ class Program
         }
         catch (DirectoryNotFoundException)
         {
-            Console.WriteLine("Ошибка: Указанная папка не найдена. Проверьте относительный путь.");
+            Console.WriteLine($"Ошибка: Указанная папка не найдена.");
+            Console.WriteLine($"Искали по пути: {absolutePath}");
+            Console.WriteLine("Проверьте правильность пути в launchSettings.json");
         }
         catch (Exception ex)
         {
