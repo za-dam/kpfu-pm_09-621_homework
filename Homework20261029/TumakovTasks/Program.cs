@@ -59,7 +59,10 @@ class Program
 
         Console.WriteLine("Попробуйте пополнить счёт");
         decimal deposit = ReadPositiveNumber<decimal>("Введите сумму пополнения : ");
-        userAccount.Deposit(deposit);
+        if (!userAccount.TryDeposit(deposit))
+        {
+            Console.WriteLine("Сумма пополнения не может быть отрицательной");
+        }
         Console.WriteLine($"Текущий баланс : {userAccount.Balance:F2}");
 
         Console.WriteLine("Попробуйте снять со счёта");

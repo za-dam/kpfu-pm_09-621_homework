@@ -32,14 +32,20 @@ public class BankAccount
         AccountType = accountType;
     }
 
-    public void Deposit(decimal amount)
+    public bool TryDeposit(decimal amount)
     {
+        if (amount < 0)
+        {
+            return false;
+        }
+
         _balance += amount;
+        return true;
     }
 
     public bool TryWithdraw(decimal amount)
     {
-        if (amount > _balance)
+        if (amount > _balance || amount < 0)
         {
             return false;
         }
