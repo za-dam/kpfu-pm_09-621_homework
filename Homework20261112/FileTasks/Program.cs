@@ -19,12 +19,15 @@ class Program
 
         TeamLead ilshat = new TeamLead("Ильшат", "Главный в секторе системщиков", TaskType.Systems, orkadiy);
         Worker ivanych = new Worker("Иваныч", "Зам. начальника системщиков", TaskType.Systems, ilshat, ilshat);
-        Worker vitya = new Worker("Витя", "Системщик", TaskType.Systems, ivanych);
+        Worker vitya = new Worker("Витя", "Системщик", TaskType.Systems, ilshat);
+        Worker jeny = new Worker("Женя", "Системщик", TaskType.Systems, ilshat);
+        Worker ilia = new Worker("Илья", "Системщик", TaskType.Systems, ilshat);
 
         TeamLead sergey = new TeamLead("Сергей", "Главный в секторе разработчиков", TaskType.Development, orkadiy);
         Worker laysan = new Worker("Ляйсан", "Зам. начальника разработчиков", TaskType.Development, sergey, sergey);
-
-        Worker marat = new Worker("Марат", "Разработчик", TaskType.Development, laysan);
+        Worker marat = new Worker("Марат", "Разработчик", TaskType.Development, sergey);
+        Worker dina = new Worker("Дина", "Разработчик", TaskType.Development, sergey);
+        Worker ildar = new Worker("Ильдар", "Разработчик", TaskType.Development, sergey);
 
         Task devTask = new Task("Автоматизировать бухгалтерию", TaskType.Development);
         Task sysTask = new Task("Обновить прошивку микроволновок", TaskType.Systems);
@@ -35,7 +38,7 @@ class Program
 
         taskManager.AssignTask(sysTask, ivanych, vitya);
 
-        taskManager.AssignTask(sysTask, ilshat, vitya);
+        taskManager.AssignTask(sysTask, laysan, vitya);
 
         taskManager.AssignTask(devTask, lukas, marat);
 
