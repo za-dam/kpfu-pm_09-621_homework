@@ -25,7 +25,11 @@ public class Project
         Status = ProjectStatus.Project;
     }
 
-    public ProjectTask CreateTask(Person creator, string description, DateTime deadline, Person executor)
+    /// <summary>
+    /// Создает задачу. Если расписание не указано, задача разовая = один отчет к сроку.
+    /// </summary>
+    public ProjectTask CreateTask(Person creator, string description, DateTime deadline,
+        Person executor, ReportSchedule? schedule = null)
     {
         if (creator != TeamLead)
             throw new InvalidOperationException("Создавать задачи по проекту может только ответственный тимлид.");
@@ -33,27 +37,33 @@ public class Project
             throw new InvalidOperationException("Создавать задачи можно только когда проект находится в статусе 'Проект'.");
 
         // Валидация в конструкторе задачи
-        var task = new ProjectTask(this, description, deadline, TeamLead, executor);
+        var task = new ProjectTask(this, description, deadline, TeamLead, executor, schedule ?? ReportSchedule.Once);
         _tasks.Add(task);
-        Console.WriteLine($"[Создана задача] '{description}' -> Исполнитель: {executor.Name}");
+
+        string reporting = task.IsPeriodic
+            ? $", отчетность: {task.Schedule}, отчетов: {task.ReportsRequired}"
+            : "";
+        Console.WriteLine($"[Создана задача] '{description}' -> Исполнитель: {executor.Name}{reporting}");
         return task;
     }
 
-    public void DeleteRejectedTask(Person initiator, ProjectTask task)
+    /// <summary>
+    /// Удаляет задачу. Удалить может её инициатор, пока задача в статусе
+    /// 'Назначена' (в том числе отклоненная, без исполнителя) или 'В работе'.
+    /// </summary>
+    public void DeleteTask(Person initiator, ProjectTask task)
     {
         ArgumentNullException.ThrowIfNull(task);
 
-        if (initiator != TeamLead)
-            throw new InvalidOperationException("Удалить задачу может только тимлид.");
-        if (Status == ProjectStatus.Closed)
-            throw new InvalidOperationException("Проект закрыт, удалять задачи нельзя.");
+        if (initiator != task.Initiator)
+            throw new InvalidOperationException("Удалить задачу может только её инициатор.");
         if (!_tasks.Contains(task))
             throw new ArgumentException("Эта задача не принадлежит данному проекту.", nameof(task));
-        if (task.Executor != null)
-            throw new InvalidOperationException("Удалить можно только отклоненную задачу без исполнителя.");
+        if (task.Status != ProjectTaskStatus.Assigned && task.Status != ProjectTaskStatus.InProgress)
+            throw new InvalidOperationException("Удалить можно только задачу в статусе 'Назначена' или 'В работе'.");
 
         _tasks.Remove(task);
-        Console.WriteLine($"[Удаление] Тимлид {TeamLead.Name} удалил отклоненную задачу '{task.Description}'");
+        Console.WriteLine($"[Удаление] {initiator.Name} удалил задачу '{task.Description}'");
     }
 
     public void StartExecution()
