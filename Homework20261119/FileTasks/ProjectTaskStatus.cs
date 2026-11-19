@@ -1,6 +1,6 @@
 namespace FileTasks;
 
-public enum TaskStatus
+public enum ProjectTaskStatus
 {
     Assigned,
     InProgress,

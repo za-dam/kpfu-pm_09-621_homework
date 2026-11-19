@@ -1,11 +1,15 @@
-﻿namespace FileTasks;
+﻿using System.Text;
+
+namespace FileTasks;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
+
         // Задача из конца файла дз8
-        // демонстрация работы распределения задач по проекту и раблоту с ними
+        // Демонстрация работы распределения задач по проекту и работы с ними
 
         Person customer = new Person("Иван Петрович", "Заказчик");
 
@@ -13,7 +17,7 @@ class Program
         Person dev1 = new Person("Дмитрий", "Backend-разработчик");
         Person dev2 = new Person("Елена", "Backend-разработчик");
         Person dev3 = new Person("Сергей", "Frontend-разработчик");
-        Person dev4 = new Person("Анна", "Frontend-разработчик");   
+        Person dev4 = new Person("Анна", "Frontend-разработчик");
         Person qa1 = new Person("Ольга", "QA-инженер");
         Person qa2 = new Person("Максим", "QA-инженер");
         Person designer = new Person("Мария", "UI/UX Дизайнер");
@@ -41,11 +45,15 @@ class Program
         var task9 = crmProject.CreateTask(teamLead, "Написание автотестов API", DateTime.Now.AddDays(25), qa1);
         var task10 = crmProject.CreateTask(teamLead, "Ручное регрессионное тестирование", DateTime.Now.AddDays(28), qa2);
 
+        var task11 = crmProject.CreateTask(teamLead, "Разработка модуля отчетности", DateTime.Now.AddDays(24), dev2);
+        var task12 = crmProject.CreateTask(teamLead, "Нагрузочное тестирование API", DateTime.Now.AddDays(26), qa2);
+
         var extraTask = crmProject.CreateTask(teamLead, "Интеграция с устаревшим факсом", DateTime.Now.AddDays(30), dev1);
+
 
         crmProject.StartExecution();
 
-        //Демонстрация различных сценариев работы с задачами
+        // Демонстрация различных сценариев работы с задачами
 
         // Сценарий 1 : Делегирование задачи (dev2 делегирует dev1)
         task5.Delegate(dev2, dev1);
@@ -72,7 +80,10 @@ class Program
         task2.ApproveReport(teamLead);
 
         // Сценарий 5 : Штатное выполнение остальных задач
-        var remainingTasks = new[] { task1, task3, task4, task6, task7, task8, task9 };
+        // Сначала попытка закрыть проект, пока не всё сделано
+        crmProject.TryCloseProject();
+
+        var remainingTasks = new[] { task1, task3, task4, task6, task7, task8, task9, task11, task12 };
         foreach (var task in remainingTasks)
         {
             Person worker = task.Executor!;
@@ -81,6 +92,16 @@ class Program
             task.ApproveReport(teamLead);
         }
 
-        crmProject.TryCloseProject();
+
+        // У каждого из 10 человек должна быть минимум одна задача
+        Console.WriteLine("\n--> Задачи по сотрудникам <--");
+        foreach (var person in team)
+        {
+            int count = crmProject.Tasks.Count(t => t.Executor == person);
+            Console.WriteLine($"{person.Name} ({person.Role}) : задач {count}");
+        }
+
+        bool everyoneHasTask = team.All(p => crmProject.Tasks.Any(t => t.Executor == p));
+        Console.WriteLine($"\nУ каждого сотрудника есть минимум одна задача : {(everyoneHasTask ? "да" : "НЕТ")}");
     }
 }

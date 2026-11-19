@@ -9,7 +9,7 @@ public class TaskReport
     public TaskReport(string text, Person executor)
     {
         if (string.IsNullOrWhiteSpace(text))
-            throw new ArgumentException("Текст отчета не может быть пустым.");
+            throw new ArgumentException("Текст отчета не может быть пустым.", nameof(text));
 
         Text = text;
         Executor = executor ?? throw new ArgumentNullException(nameof(executor));
