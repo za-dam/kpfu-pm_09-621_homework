@@ -16,7 +16,7 @@ public class Rectangle : Point
 
     public override void PrintInfo()
     {
-        Console.Write("Прямоугольник");
+        Console.Write("Прямоугольник -> ");
         base.PrintInfo();
         Console.Write($", Длина : {Length}, Ширина : {Width}, Площадь : {CalculateRectangleArea():F2}");
     }

@@ -17,7 +17,7 @@ public class Point : BaseFigure
 
     public override void PrintInfo()
     {
-        Console.Write("Точка");
+        Console.Write("Точка -> ");
         base.PrintInfo();
         Console.Write($", Координаты : ({X}, {Y})");
     }

@@ -14,7 +14,7 @@ public class Circle : Point
 
     public override void PrintInfo()
     {
-        Console.Write("Окружность");
+        Console.Write("Окружность -> ");
         base.PrintInfo();
         Console.Write($", Радиус : {Radius}, Площадь : {CalculateArea():F2}");
     }
