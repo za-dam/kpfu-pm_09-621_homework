@@ -2,14 +2,19 @@ namespace TumakovTasks;
 
 public class ACipher : BaseCipher, ICipher
 {
-    public void encode(ref string input) => Shift(ref input, 1);
+    private const int DefaultShift = 1;
 
-    public void decode(ref string input) => Shift(ref input, -1);
+    public void encode(ref string input) => Shift(ref input, DefaultShift);
+
+    public void decode(ref string input) => Shift(ref input, -DefaultShift);
 
     private void Shift(ref string input, int step)
     {
         if (string.IsNullOrEmpty(input))
-            return;
+        return;
+
+        int shiftEng = (step % 26 + 26) % 26;
+        int shiftRus = (step % 33 + 33) % 33;
 
         char[] result = new char[input.Length];
 
@@ -23,12 +28,11 @@ public class ACipher : BaseCipher, ICipher
                 if (index != -1)
                 {
                     string alphabet = CharToAlphabet[c];
-                    int newIndex = index + step;
+                    int currentShift = alphabet.Length == 26 ? shiftEng : shiftRus;
 
+                    int newIndex = index + currentShift;
                     if (newIndex >= alphabet.Length)
-                        newIndex = 0;
-                    else if (newIndex < 0)
-                        newIndex = alphabet.Length - 1;
+                        newIndex -= alphabet.Length;
 
                     result[i] = alphabet[newIndex];
                     continue;
