@@ -69,10 +69,10 @@ class Program
         Circle circle = new Circle(0, 0, 5.5, FigureColor.Red, FigureVisibility.Visible);
         Rectangle rectangle = new Rectangle(5, 5, 10, 4, FigureColor.Blue, FigureVisibility.Invisible);
 
-        BaseFigure[] figures = { point, circle, rectangle };
+        FigureBase[] figures = { point, circle, rectangle };
 
         Console.WriteLine("Исходное состояние фигур");
-        foreach (BaseFigure fig in figures)
+        foreach (FigureBase fig in figures)
         {
             fig.PrintInfo();
             Console.WriteLine();
@@ -90,7 +90,7 @@ class Program
         Console.WriteLine($"Статус видимости прямоугольника : {rectangle.StatusSurvey()}");
 
         Console.WriteLine("\nСостояние после изменений");
-        foreach (BaseFigure fig in figures)
+        foreach (FigureBase fig in figures)
         {
             fig.PrintInfo();
             Console.WriteLine();
