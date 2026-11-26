@@ -1,6 +1,6 @@
 namespace TumakovTasks;
 
-public class BCipher : BaseCipher, ICipher
+public class BCipher : CipherBase, ICipher
 {
     public void encode(ref string input)
     {

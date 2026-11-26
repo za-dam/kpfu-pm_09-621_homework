@@ -1,6 +1,6 @@
 namespace TumakovTasks;
 
-public abstract class BaseCipher
+public abstract class CipherBase
 {
     private const string EngLower = "abcdefghijklmnopqrstuvwxyz";
     private const string RusLower = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
@@ -10,7 +10,7 @@ public abstract class BaseCipher
     protected static readonly int[] CharToIndex = new int[1106];
     protected static readonly string[] CharToAlphabet = new string[1106];
 
-    static BaseCipher()
+    static CipherBase()
     {
         Array.Fill(CharToIndex, -1);
         RegisterAlphabet(EngLower);

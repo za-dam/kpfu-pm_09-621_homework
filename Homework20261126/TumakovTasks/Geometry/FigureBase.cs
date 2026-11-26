@@ -1,11 +1,11 @@
 namespace TumakovTasks;
 
-public abstract class BaseFigure : IFigure
+public abstract class FigureBase : IFigure
 {
     public FigureColor Color { get; private set; }
     public FigureVisibility Visibility { get; private set; }
 
-    protected BaseFigure(FigureColor color, FigureVisibility visibility)
+    protected FigureBase(FigureColor color, FigureVisibility visibility)
     {
         Color = color;
         Visibility = visibility;

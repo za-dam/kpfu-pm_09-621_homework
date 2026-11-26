@@ -1,6 +1,6 @@
 namespace TumakovTasks;
 
-public class ACipher : BaseCipher, ICipher
+public class ACipher : CipherBase, ICipher
 {
     private const int DefaultShift = 1;
 
